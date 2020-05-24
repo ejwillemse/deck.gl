@@ -12,6 +12,10 @@ The data is collected by the US Census Bureau and viewable in the 2017 LODES dat
 import pydeck
 import pandas as pd
 
+with open('../../../mapbox_key.txt', 'r') as f:
+    mapbox_key = f.readline()
+    print('Mapbox key =', mapbox_key)
+
 DATA_URL = "https://raw.githubusercontent.com/ajduberstein/sf_public_data/master/bay_area_commute_routes.csv"
 DOWNTOWN_BOUNDING_BOX = [
     -122.43135291617365,
@@ -52,5 +56,5 @@ view_state = pydeck.ViewState(latitude=37.7576171, longitude=-122.5776844, beari
 
 
 TOOLTIP_TEXT = {"html": "{S000} jobs <br /> Home of commuter in red; work location in green"}
-r = pydeck.Deck(arc_layer, initial_view_state=view_state, tooltip=TOOLTIP_TEXT)
+r = pydeck.Deck(arc_layer, initial_view_state=view_state, tooltip=TOOLTIP_TEXT, mapbox_key=mapbox_key)
 r.to_html("arc_layer.html", notebook_display=False)

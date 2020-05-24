@@ -13,6 +13,10 @@ https://archive.ics.uci.edu/ml/datasets/Real+estate+valuation+data+set
 import pydeck
 import pandas as pd
 
+with open('../../../mapbox_key.txt', 'r') as f:
+    mapbox_key = f.readline()
+    print('Mapbox key =', mapbox_key)
+
 DATA_URL = "https://raw.githubusercontent.com/ajduberstein/geo_datasets/master/housing.csv"
 df = pd.read_csv(DATA_URL)
 
@@ -38,7 +42,6 @@ tooltip = {
 }
 
 r = pydeck.Deck(
-    column_layer, initial_view_state=view, tooltip=tooltip, map_style="mapbox://styles/mapbox/satellite-v9",
-)
+    column_layer, initial_view_state=view, tooltip=tooltip, map_style="mapbox://styles/mapbox/satellite-v9", mapbox_key=mapbox_key)
 
 r.to_html("column_layer.html", notebook_display=False)
